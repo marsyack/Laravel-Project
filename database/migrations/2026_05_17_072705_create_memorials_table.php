@@ -6,17 +6,15 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('memorials', function (Blueprint $table) {
             $table->id();
             $table->string('nama');
             $table->string('hubungan');
-            $table->date('tanggal_lahir')->nullable();
-            $table->date('tanggal_wafat')->nullable();
+            $table->enum('status', ['Masih Hidup', 'Telah Berpulang'])
+                  ->default('Masih Hidup');
+            $table->date('tanggal_dibuat')->nullable();
             $table->string('foto')->nullable();
             $table->text('cerita');
             $table->text('doa')->nullable();
@@ -24,9 +22,6 @@ return new class extends Migration
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('memorials');

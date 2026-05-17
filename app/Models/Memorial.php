@@ -9,8 +9,8 @@ class Memorial extends Model
     protected $fillable = [
         'nama',
         'hubungan',
-        'tanggal_lahir',
-        'tanggal_wafat',
+        'status',
+        'tanggal_dibuat',
         'foto',
         'cerita',
         'doa',

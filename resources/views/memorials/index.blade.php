@@ -6,13 +6,15 @@
         Kenangan yang Tak Pernah Hilang
     </h2>
     <p class="text-gray-600 mt-2">
-        Simpan cerita dan doa untuk orang-orang tercinta.
+        Simpan cerita untuk orang-orang tercinta.
     </p>
 </div>
 
 <form method="GET" class="mb-6">
-    <input type="text" name="search" value="{{ $search }}"
-           placeholder="Cari berdasarkan nama..."
+    <input type="text"
+           name="search"
+           value="{{ $search }}"
+           placeholder="Cari berdasarkan nama atau hubungan..."
            class="w-full border rounded-lg px-4 py-3">
 </form>
 
@@ -27,7 +29,17 @@
             <h3 class="text-xl font-bold">{{ $memorial->nama }}</h3>
             <p class="text-sm text-gray-500">{{ $memorial->hubungan }}</p>
 
-            <div class="mt-4 flex gap-2">
+            <p class="text-xs mt-2 inline-block bg-rose-100 text-rose-600 px-2 py-1 rounded-full">
+                {{ $memorial->status }}
+            </p>
+
+            @if($memorial->tanggal_dibuat)
+                <p class="text-sm text-gray-400 mt-2">
+                    {{ \Carbon\Carbon::parse($memorial->tanggal_dibuat)->format('d M Y') }}
+                </p>
+            @endif
+
+            <div class="mt-4 flex gap-2 flex-wrap">
                 <a href="{{ route('memorials.show', $memorial) }}"
                    class="bg-blue-500 text-white px-3 py-1 rounded">
                     Detail

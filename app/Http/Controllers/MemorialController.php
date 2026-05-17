@@ -13,7 +13,8 @@ class MemorialController extends Controller
         $search = $request->search;
 
         $memorials = Memorial::when($search, function ($query) use ($search) {
-            $query->where('nama', 'like', "%{$search}%");
+            $query->where('nama', 'like', "%{$search}%")
+                  ->orWhere('hubungan', 'like', "%{$search}%");
         })->latest()->get();
 
         return view('memorials.index', compact('memorials', 'search'));
@@ -29,12 +30,14 @@ class MemorialController extends Controller
         $data = $request->validate([
             'nama' => 'required|max:255',
             'hubungan' => 'required|max:255',
-            'tanggal_lahir' => 'nullable|date',
-            'tanggal_wafat' => 'nullable|date',
+            'status' => 'required|in:Masih Hidup,Telah Berpulang',
+            'tanggal_dibuat' => 'nullable|date',
             'foto' => 'nullable|image|max:2048',
             'cerita' => 'required',
             'doa' => 'nullable',
         ]);
+
+        $data['tanggal_dibuat'] = $data['tanggal_dibuat'] ?? now()->toDateString();
 
         if ($request->hasFile('foto')) {
             $data['foto'] = $request->file('foto')->store('memorials', 'public');
@@ -61,8 +64,8 @@ class MemorialController extends Controller
         $data = $request->validate([
             'nama' => 'required|max:255',
             'hubungan' => 'required|max:255',
-            'tanggal_lahir' => 'nullable|date',
-            'tanggal_wafat' => 'nullable|date',
+            'status' => 'required|in:Masih Hidup,Telah Berpulang',
+            'tanggal_dibuat' => 'nullable|date',
             'foto' => 'nullable|image|max:2048',
             'cerita' => 'required',
             'doa' => 'nullable',

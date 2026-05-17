@@ -1,6 +1,7 @@
 @csrf
 
 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+
     <div>
         <label class="block font-semibold mb-1">Nama</label>
         <input type="text" name="nama"
@@ -16,18 +17,26 @@
     </div>
 
     <div>
-        <label class="block font-semibold mb-1">Tanggal Lahir</label>
-        <input type="date" name="tanggal_lahir"
-               value="{{ old('tanggal_lahir', $memorial->tanggal_lahir ?? '') }}"
-               class="w-full border rounded-lg px-4 py-2">
+        <label class="block font-semibold mb-1">Status</label>
+        <select name="status" class="w-full border rounded-lg px-4 py-2">
+            <option value="Masih Hidup"
+                {{ old('status', $memorial->status ?? '') == 'Masih Hidup' ? 'selected' : '' }}>
+                Masih Hidup
+            </option>
+            <option value="Telah Berpulang"
+                {{ old('status', $memorial->status ?? '') == 'Telah Berpulang' ? 'selected' : '' }}>
+                Telah Berpulang
+            </option>
+        </select>
     </div>
 
     <div>
-        <label class="block font-semibold mb-1">Tanggal Wafat</label>
-        <input type="date" name="tanggal_wafat"
-               value="{{ old('tanggal_wafat', $memorial->tanggal_wafat ?? '') }}"
+        <label class="block font-semibold mb-1">Tanggal Dibuat</label>
+        <input type="date" name="tanggal_dibuat"
+               value="{{ old('tanggal_dibuat', $memorial->tanggal_dibuat ?? '') }}"
                class="w-full border rounded-lg px-4 py-2">
     </div>
+
 </div>
 
 <div class="mt-4">
@@ -43,7 +52,7 @@
 </div>
 
 <div class="mt-4">
-    <label class="block font-semibold mb-1">Doa</label>
+    <label class="block font-semibold mb-1">Doa dan Harapan</label>
     <textarea name="doa" rows="4"
               class="w-full border rounded-lg px-4 py-2">{{ old('doa', $memorial->doa ?? '') }}</textarea>
 </div>
